@@ -1,5 +1,7 @@
 from django.http import JsonResponse
 
+from .models import Blog
+
 
 def list_blogs(request):
     # Get all of the blogs
