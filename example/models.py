@@ -7,7 +7,7 @@ class Blog(models.Model):
     content = models.TextField()
 
     def get_api_url(self):
-        return reverse("show_blog_detail", kwargs={"pk", self.pk})
+        return reverse("show_blog_detail", kwargs={"pk": self.pk})
 
 
 class Comment(models.Model):
