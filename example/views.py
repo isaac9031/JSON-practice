@@ -1,9 +1,9 @@
 from django.http import JsonResponse
 
 
-def list_my_model(request):
+def list_blogs(request):
     pass
 
 
-def show_my_model(request, pk):
+def show_blog_detail(request, pk):
     pass
