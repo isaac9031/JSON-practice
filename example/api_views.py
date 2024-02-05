@@ -26,13 +26,13 @@ def show_blog_detail(request, id):
 
     # Return the blog and its comments in dictionary
     comments = [
-        {"id": comment.id, "content": comment.content} for comment in blog.comments.all() #blogs accesses Comment model thru the related_name=comments
+        {"id": comment.id, "comment": comment.content} for comment in blog.comments.all() #blogs accesses Comment model thru the related_name=comments
     ]
     # comments = []  #version easier to understand than the one above^^
     # for comment in blog.comments.all():  #accesses comments trough the related_name: comments then it adds it to the list
     #     comment_data = {
     #         "id": comment.id,
-    #         "content": comment.content,   #this is the content attribute under the Comment model
+    #         "comment": comment.content,   #this is the content attribute under the Comment model
     # }
     # comments.append(comment_data)
 
@@ -52,12 +52,12 @@ def create_comment(request, blog_id):
         body = json.loads(request.body)    #json.loads()  in Python that is used to parse a JSON string and convert it into a Python object(dic, array, int, etc)
 
         blog = Blog.objects.get(id=blog_id)
-        # blog.add_comment(body["content"]) # it passes body[content] to models def add_comment function. ##uncomment to see how it works
+        # blog.add_comment(body["comment"]) # it passes body[comment] to models def add_comment function. ##uncomment to see how it works
 
         #uses Django's Oject-Relational Mapping(ORM) system to create a new intance of 'Comment' model and saves it in the database, creates a new comment
         Comment.objects.create(  #was moved to models  comment entire thing to see how blog.addcomment.etc works
-            content=body["content"], #using key:value, in this case accessing the python body dictionary. body = { "content": "This is a comment"} and we use body["content"] to get the value "This is a comment"
+            content=body["comment"], #using key:value, in this case accessing the python body dictionary. body = { "comment": "This is a comment"} and we use body["comment"] to get the value "This is a comment"
             blog=blog,  #associates the comment with the current blog
         )
 
-        return JsonResponse({"message": "created"})
+        return JsonResponse({"message": "created"})  #lets the client(coder know that the comment that is inside body["comment"] has been created) in insomnia
